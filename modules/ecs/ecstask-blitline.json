@@ -1,0 +1,51 @@
+[{
+    "name": "Blitline2-blitline",
+    "image": "348180535083.dkr.ecr.us-west-2.amazonaws.com/cn/Blitline2-blitline:${Blitline2env}",
+    "cpu": 1024,
+    "memory": 1024,
+    "essential": true,
+    "portMappings": [{
+        "containerPort": 8080,
+        "protocol": "tcp",
+        "hostPort": 0
+    }],
+    "environment": [{
+            "name": "Blitline2_role",
+            "value": "arn:aws:iam::${accountid}:role/wb-cmd-Blitline2-ecs-${Blitline2env}-${region}-Blitline2ECSRole"
+        },
+        {
+            "name": "Blitline2_env",
+            "value": "${Blitline2env}"
+        },
+        {
+            "name": "APPLICATION_NAME",
+            "value": "Blitline2-blitline-${Blitline2env}"
+        },
+        {
+            "name": "region",
+            "value": "${region}"
+        },
+        {
+            "name": "APPLICATION_TYPE",
+            "value": "api"
+        }
+    ],
+    "secrets": [{
+            "name": "CLOUDWATCH",
+            "valueFrom": "/${Blitline2env}/ops.cloudwatch"
+        },
+        {
+            "name": "blitline.jdbc.username",
+            "valueFrom": "/${Blitline2env}/blitline.jdbc.username"
+        },
+        {
+            "name": "blitline.jdbc.password",
+            "valueFrom": "/${Blitline2env}/blitline.jdbc.password"
+        },
+        {
+            "name": "blitline.jdbc.url",
+            "valueFrom": "/${Blitline2env}/blitline.jdbc.url"
+        }
+    ]
+
+}]
